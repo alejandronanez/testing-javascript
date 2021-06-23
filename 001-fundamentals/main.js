@@ -1,21 +1,23 @@
-const sum = (a, b) => a - b;
+const sum = (a, b) => a + b;
 const subtract = (a, b) => a - b;
+const sumAsync = (...args) => Promise.resolve(sum(...args))
+const subtractAsync = (...args) => Promise.resolve(subtract(...args))
 
-test('sum adds numbers', () => {
-  const result = sum(3, 7)
+test('sum adds numbers', async () => {
+  const result = await sumAsync(3, 7)
   const expected = 10;
   expect(result).toBe(expected);
 })
 
-test('subtract subtracts numbers', () => {
-  const result = subtract(1, 1)
+test('subtract subtracts numbers', async () => {
+  const result =  await subtractAsync(1, 1)
   const expected = 0;
   expect(result).toBe(expected);
 })
 
-function test(title, callback) {
+async function test(title, callback) {
   try {
-    callback();
+    await callback();
     console.log(`✅ ${title}`);
   } catch(error) {
     console.error(`❌ ${title}`);
